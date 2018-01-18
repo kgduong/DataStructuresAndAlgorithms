@@ -1,0 +1,50 @@
+class LinkedStack:
+    '''LIFO Stack implemented using a singly linked list for storage'''
+
+    class _Node:
+        '''Lightweight, nonpublic class for storing a singly linked node'''
+        __slots__ = '_element', '_next' #Streamline memory usage for python GC
+
+        def __init__(self, element, next):
+            self._element = element
+            self._next = next
+
+    def __init__(self):
+        '''Create an empty stack'''
+        self._head = None
+        self._size = 0
+
+    def __len__(self):
+        '''Returns the size of the stack'''
+        return self._size
+
+    def is_empty(self):
+        '''Returns True is stack is empty'''
+        return self._size == 0
+
+    def push(self, e):
+        '''Push a new element e onto the stack'''
+        self._head = self._Node(e, self._head)
+        self._size += 1
+
+    def top(self):
+        '''Return (but do not remove) the element at the top of the stack
+        Raise Empty Exception if the stack is empty
+        '''
+        if(self.is_empty()):
+            raise ValueError('Stack is empty')
+        return self._head._element
+
+    def pop(self):
+        '''Remove and return the element from the top of the stack(LIFO)
+        Raise empty exception if the stack is empty
+        '''
+        if(self.is_empty()):
+            raise ValueError("Empty stack")
+        answer = self._head._element
+        self._head = self._head._next
+        self._size -=1
+        
+        return answer
+
+
